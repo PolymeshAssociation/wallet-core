@@ -19,6 +19,7 @@ pub enum BlockchainType {
     InternetComputer,
     NativeEvmos,
     NativeInjective,
+    Polkadot,
     Ronin,
     Solana,
     Sui,
