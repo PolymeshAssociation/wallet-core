@@ -8,6 +8,7 @@ members = [
     "chains/tw_internet_computer",
     "chains/tw_native_evmos",
     "chains/tw_native_injective",
+    "chains/tw_polkadot",
     "chains/tw_ronin",
     "chains/tw_solana",
     "chains/tw_sui",
@@ -32,6 +33,7 @@ members = [
     "tw_proto",
     "wallet_core_bin",
     "wallet_core_rs",
+    "tw_ss58_address",
 ]
 
 [profile.release]
