@@ -17,6 +17,7 @@ mod native_evmos;
 mod native_injective;
 mod pactus;
 mod polkadot;
+mod polymesh;
 mod solana;
 mod sui;
 mod tbinance;

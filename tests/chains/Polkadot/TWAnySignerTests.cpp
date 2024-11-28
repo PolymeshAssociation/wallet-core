@@ -24,7 +24,6 @@ namespace TW::Polkadot::tests {
 auto polkadotPrefix = ss58Prefix(TWCoinTypePolkadot);
 auto kusamaPrefix = ss58Prefix(TWCoinTypeKusama);
 auto astarPrefix = 5;
-auto polymeshPrefix = 12;
 auto parallelPrefix = 172;
 
 auto privateKey = PrivateKey(parse_hex("0xabf8e5bdbe30c65656c0a3cbd181ff8a56294a69dfedd27982aace4a76909115"));
