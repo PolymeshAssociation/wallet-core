@@ -1,4 +1,4 @@
-use crate::{ctx_from_tw, KUSAMA, POLKADOT};
+use crate::ctx_from_tw;
 use tw_proto::Polkadot::Proto::{
     self,
     mod_Balance::{BatchAssetTransfer, BatchTransfer, OneOfmessage_oneof as BalanceVariant},
@@ -13,11 +13,8 @@ use tw_proto::Polkadot::Proto::{
 use tw_scale::{RawOwned, ToScale};
 use tw_substrate::*;
 
-pub mod generic;
-use generic::*;
-
-pub mod polkadot;
-use polkadot::*;
+pub mod polymesh;
+use polymesh::*;
 
 pub fn validate_call_index(call_index: &Option<CallIndices>) -> EncodeResult<CallIndex> {
     let index = match call_index {
@@ -39,22 +36,13 @@ pub fn required_call_index(call_index: &Option<CallIndices>) -> EncodeResult<Cal
     CallIndex::required_from_tw(index)
 }
 
-pub trait TWPolkadotCallEncoder {
-    fn encode_call(&self, msg: &SigningVariant<'_>) -> EncodeResult<RawOwned>;
-    fn encode_batch(&self, calls: Vec<RawOwned>) -> EncodeResult<RawOwned>;
-}
-
 pub struct CallEncoder {
-    encoder: Box<dyn TWPolkadotCallEncoder>,
+    encoder: PolymeshCallEncoder,
 }
 
 impl CallEncoder {
     pub fn from_ctx(ctx: &SubstrateContext) -> EncodeResult<Self> {
-        let encoder = match ctx.network {
-            POLKADOT => PolkadotCallEncoder::new(ctx),
-            KUSAMA => KusamaCallEncoder::new(ctx),
-            _ => PolkadotCallEncoder::new(ctx),
-        };
+        let encoder = PolymeshCallEncoder::new(ctx);
         Ok(Self { encoder })
     }
 
