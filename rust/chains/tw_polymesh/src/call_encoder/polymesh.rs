@@ -5,14 +5,13 @@ use tw_number::U256;
 use tw_proto::Polkadot::Proto::{
     mod_Balance::{OneOfmessage_oneof as BalanceVariant, Transfer},
     mod_Identity::{AddAuthorization, JoinIdentityAsKey, OneOfmessage_oneof as IdentityVariant},
-    mod_PolymeshCall::OneOfmessage_oneof as PolymeshVariant,
     mod_Staking::{
         Bond, BondExtra, Chill, Nominate, OneOfmessage_oneof as StakingVariant, Rebond, Unbond,
         WithdrawUnbonded,
     },
     Balance, Identity, Staking,
 };
-use tw_scale::{impl_enum_scale, impl_struct_scale, Compact, RawOwned, ToScale};
+use tw_scale::{impl_enum_scale, impl_struct_scale, Compact, RawOwned};
 use tw_ss58_address::SS58Address;
 use tw_substrate::address::SubstrateAddress;
 
@@ -344,43 +343,3 @@ impl_enum_scale!(
         Utility(PolymeshUtility) = 0x29,
     }
 );
-
-pub struct PolymeshCallEncoder;
-
-impl PolymeshCallEncoder {
-    pub fn new(_ctx: &SubstrateContext) -> Self {
-        Self
-    }
-}
-
-impl PolymeshCallEncoder {
-    pub fn encode_call(&self, msg: &SigningVariant<'_>) -> EncodeResult<RawOwned> {
-        let call = match msg {
-            SigningVariant::balance_call(b) => {
-                PolymeshBalances::encode_call(b)?.map(PolymeshCall::Balances)
-            },
-            SigningVariant::polymesh_call(msg) => match &msg.message_oneof {
-                PolymeshVariant::identity_call(msg) => {
-                    PolymeshIdentity::encode_call(msg)?.map(PolymeshCall::Identity)
-                },
-                PolymeshVariant::None => {
-                    return EncodeError::NotSupported
-                        .tw_result("Polymesh call variant is None".to_string());
-                },
-            },
-            SigningVariant::staking_call(s) => {
-                PolymeshStaking::encode_call(s)?.map(PolymeshCall::Staking)
-            },
-            SigningVariant::None => {
-                return EncodeError::NotSupported
-                    .tw_result("Staking call variant is None".to_string());
-            },
-        };
-        Ok(RawOwned(call.to_scale()))
-    }
-
-    pub fn encode_batch(&self, calls: Vec<RawOwned>) -> EncodeResult<RawOwned> {
-        let call = PolymeshCall::Utility(PolymeshUtility::BatchAll { calls });
-        Ok(RawOwned(call.to_scale()))
-    }
-}
