@@ -73,7 +73,6 @@ fn staking_call(call: Proto::mod_Staking::OneOfmessage_oneof) -> Option<Proto::R
 fn polymesh_encode_transfer_with_memo() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: balance_call(Proto::mod_Balance::OneOfmessage_oneof::transfer(Transfer {
             to_address: "2EB7wW2fYfFskkSx2d65ivn34ewpuEjcowfJYBL79ty5FsZF".into(),
             value: Cow::Owned(U256::from(1u64).to_big_endian().to_vec()),
@@ -94,7 +93,6 @@ fn polymesh_encode_transfer_with_memo() {
 fn polymesh_encode_authorization_join_identity() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: polymesh_add_auth_call(Proto::mod_Identity::AddAuthorization {
             target: "2FM6FpjQ6r5HTt7FGYSzskDNkwUyFsonMtwBpsnr9vwmCjhc".into(),
             authorization: Some(Authorization {
@@ -116,7 +114,6 @@ fn polymesh_encode_authorization_join_identity() {
 fn polymesh_encode_authorization_join_identity_with_zero_data() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: polymesh_add_auth_call(Proto::mod_Identity::AddAuthorization {
             target: "2FM6FpjQ6r5HTt7FGYSzskDNkwUyFsonMtwBpsnr9vwmCjhc".into(),
             authorization: Some(Authorization {
@@ -154,7 +151,6 @@ fn polymesh_encode_authorization_join_identity_with_zero_data() {
 fn polymesh_encode_authorization_join_identity_allowing_everything() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: polymesh_add_auth_call(Proto::mod_Identity::AddAuthorization {
             target: "2FM6FpjQ6r5HTt7FGYSzskDNkwUyFsonMtwBpsnr9vwmCjhc".into(),
             authorization: Some(Authorization {
@@ -183,7 +179,6 @@ fn polymesh_encode_authorization_join_identity_allowing_everything() {
 fn polymesh_encode_identity() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: polymesh_join_identity(4875),
         ..Default::default()
     };
@@ -196,7 +191,6 @@ fn polymesh_encode_identity() {
 fn encode_staking_nominate() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: staking_call(Proto::mod_Staking::OneOfmessage_oneof::nominate(Nominate {
             nominators: vec![
                 "2DxgKKS53wsAeETAZXhmT5A1bTt7h1aV4bKdtkMDwwSzSMXm".into(),
@@ -218,7 +212,6 @@ fn encode_staking_nominate() {
 fn encode_staking_chill() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: staking_call(Proto::mod_Staking::OneOfmessage_oneof::chill(Chill {
             call_indices: None,
         })),
@@ -233,7 +226,6 @@ fn encode_staking_chill() {
 fn encode_staking_bond() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: staking_call(Proto::mod_Staking::OneOfmessage_oneof::bond(Bond {
             controller: "2HqjMm2goapWvXQBqjjEdVaTZsUmunWwEq1TSToDR1pDzQ1F".into(),
             value: U256::from(808081u64).to_big_endian().to_vec().into(),
@@ -254,7 +246,6 @@ fn encode_staking_bond() {
 fn encode_staking_bond_extra() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: staking_call(Proto::mod_Staking::OneOfmessage_oneof::bond_extra(
             BondExtra {
                 value: U256::from(808081u64).to_big_endian().to_vec().into(),
@@ -272,7 +263,6 @@ fn encode_staking_bond_extra() {
 fn encode_staking_rebond() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: staking_call(Proto::mod_Staking::OneOfmessage_oneof::rebond(Rebond {
             value: U256::from(808081u64).to_big_endian().to_vec().into(),
             call_indices: None,
@@ -288,7 +278,6 @@ fn encode_staking_rebond() {
 fn encode_staking_unbond() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: staking_call(Proto::mod_Staking::OneOfmessage_oneof::unbond(Unbond {
             value: U256::from(808081u64).to_big_endian().to_vec().into(),
             call_indices: None,
@@ -304,7 +293,6 @@ fn encode_staking_unbond() {
 fn encode_staking_withdraw_unbonded() {
     let input = Proto::SigningInput {
         network: 12,
-        multi_address: true,
         runtime_call: staking_call(Proto::mod_Staking::OneOfmessage_oneof::withdraw_unbonded(
             WithdrawUnbonded {
                 slashing_spans: 84,
