@@ -67,6 +67,7 @@ enum TWBlockchain {
     TWBlockchainNativeInjective = 54, // Cosmos
     TWBlockchainBitcoinCash = 55,
     TWBlockchainPactus = 56,
+    TWBlockchainPolymesh = 57, // Substrate
 };
 
 TW_EXTERN_C_END
